@@ -1,0 +1,62 @@
+{
+    "meta": {
+        "title": "Photo Pop - Free Online Photo Booth",
+        "description": "Capture your best moments instantly with Photo Pop! Free online webcam photo booth. No installation needed. Customize with frames, filters, and layouts.",
+        "keywords": "photo booth, webcam photobooth, online photo booth, free photobooth, 4 cuts photo, instant camera, photo sticker, web camera app"
+    },
+    "header": {
+        "title": "PHOTO POP!"
+    },
+    "buttons": {
+        "start": "Start Capture",
+        "capturing": "Capturing...",
+        "download": "Download",
+        "reset": "🔄 Reset All",
+        "confirmReset": "Are you sure you want to delete all photos?",
+        "col": "Col",
+        "grid": "Grid",
+        "mix": "Mix",
+        "row": "Row",
+        "split": "Split"
+    },
+    "colors": {
+        "white": "White",
+        "pink": "Pink",
+        "cyan": "Cyan",
+        "lime": "Lime"
+    },
+    "filters": {
+        "normal": "Normal",
+        "bw": "B&W",
+        "sepia": "Sepia",
+        "bright": "Bright"
+    },
+    "info": {
+        "mainTitle": "Photo Pop User Guide",
+        "mainDesc": "Your own online photo booth to enjoy anytime, anywhere",
+        "introTitle": "📸 About Service",
+        "introDesc": "<strong>Photo Pop</strong> is a free web application that lets you easily take and decorate 4-cut photos using your webcam. You can capture life photos anywhere on PC and mobile without complex installation. Record precious moments with friends, lovers, and family.",
+        "featuresTitle": "✨ Key Features",
+        "feat1": "<strong>Real-time Mirroring:</strong> Natural shooting like looking in a mirror",
+        "feat2": "<strong>Auto Timer:</strong> 3-second countdown to prepare poses",
+        "feat3": "<strong>Various Layouts:</strong> 1x4 Vertical, 2x2 Grid, Mixed, Row types",
+        "feat4": "<strong>Filters & Frames:</strong> Emotional filters and colorful frame combinations",
+        "feat5": "<strong>HD Download:</strong> Instantly save your photos as PNG files",
+        "tipsTitle": "💡 Shooting Tips",
+        "tip1": "Shooting in a bright place improves quality significantly.",
+        "tip2": "Look directly at the camera lens for natural eye contact.",
+        "tip3": "'Row' layout is recommended for group photos!",
+        "tip4": "Use various props to create more fun photos.",
+        "privacyTitle": "📝 Terms & Info",
+        "privacyDesc": "This service processes images only within your browser effectively secure without storing them on the server.",
+        "contact": "Contact",
+        "footerTag": "Free Online Photo Booth | Webcam Photo Stickers | Instant Camera"
+    },
+    "footer": {
+        "home": "Home",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "rights": "All rights reserved.",
+        "desc": "Photo Pop is a free online photo booth service.\nWe do not store your photos on our servers without permission."
+    }
+}

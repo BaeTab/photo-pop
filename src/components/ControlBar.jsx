@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 export default function ControlBar({
     onStart,
@@ -14,18 +15,20 @@ export default function ControlBar({
     currentLayout,
     onReset // New prop
 }) {
+    const { t } = useTranslation();
+
     const colors = [
-        { name: "White", val: "#ffffff" },
-        { name: "Pink", val: "#EC4899" },
-        { name: "Cyan", val: "#06B6D4" },
-        { name: "Lime", val: "#a3e635" },
+        { name: t('colors.white'), val: "#ffffff" },
+        { name: t('colors.pink'), val: "#EC4899" },
+        { name: t('colors.cyan'), val: "#06B6D4" },
+        { name: t('colors.lime'), val: "#a3e635" },
     ];
 
     const filters = [
-        { name: "Normal", val: "none" },
-        { name: "BW", val: "grayscale(100%)" },
-        { name: "Sepia", val: "sepia(80%)" },
-        { name: "Bright", val: "brightness(120%) saturate(120%)" },
+        { name: t('filters.normal'), val: "none" },
+        { name: t('filters.bw'), val: "grayscale(100%)" },
+        { name: t('filters.sepia'), val: "sepia(80%)" },
+        { name: t('filters.bright'), val: "brightness(120%) saturate(120%)" },
     ];
 
     return (
@@ -42,14 +45,14 @@ export default function ControlBar({
                         : "bg-pop-cyan hover:bg-cyan-600 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
                     }`}
             >
-                {isCapturing ? "촬영 중..." : hasPhotos ? "다운로드 (Download)" : "촬영 시작 (Start)"}
+                {isCapturing ? t('buttons.capturing') : hasPhotos ? t('buttons.download') : t('buttons.start')}
             </button>
 
             {/* Frame Colors */}
             <div className="flex gap-2 justify-center">
                 {colors.map((c) => (
                     <button
-                        key={c.name}
+                        key={c.val}
                         onClick={() => setFrameColor(c.val)}
                         className={`w-8 h-8 rounded-full border-2 border-black ${currentFrame === c.val ? "ring-2 ring-black ring-offset-2" : ""
                             }`}
@@ -63,7 +66,7 @@ export default function ControlBar({
             <div className="flex gap-2 justify-center text-sm font-bold">
                 {filters.map((f) => (
                     <button
-                        key={f.name}
+                        key={f.val}
                         onClick={() => setFilterStyle(f.val)}
                         className={`px-2 py-1 border-2 border-black rounded bg-gray-100 hover:bg-gray-200 ${currentFilter === f.val ? "bg-yellow-300" : ""
                             }`}
@@ -79,31 +82,31 @@ export default function ControlBar({
                     onClick={() => setLayout("1x4")}
                     className={`px-3 py-1 border-2 border-black rounded ${currentLayout === "1x4" ? "bg-pop-yellow" : "bg-white"}`}
                 >
-                    Col
+                    {t('buttons.col')}
                 </button>
                 <button
                     onClick={() => setLayout("2x2")}
                     className={`px-3 py-1 border-2 border-black rounded ${currentLayout === "2x2" ? "bg-pop-yellow" : "bg-white"}`}
                 >
-                    Grid
+                    {t('buttons.grid')}
                 </button>
                 <button
                     onClick={() => setLayout("mixed")}
                     className={`px-3 py-1 border-2 border-black rounded ${currentLayout === "mixed" ? "bg-pop-yellow" : "bg-white"}`}
                 >
-                    Mix
+                    {t('buttons.mix')}
                 </button>
                 <button
                     onClick={() => setLayout("horizontal")}
                     className={`px-3 py-1 border-2 border-black rounded ${currentLayout === "horizontal" ? "bg-pop-yellow" : "bg-white"}`}
                 >
-                    Row
+                    {t('buttons.row')}
                 </button>
                 <button
                     onClick={() => setLayout("split")}
                     className={`px-3 py-1 border-2 border-black rounded ${currentLayout === "split" ? "bg-pop-yellow" : "bg-white"}`}
                 >
-                    Split
+                    {t('buttons.split')}
                 </button>
             </div>
 
@@ -114,9 +117,9 @@ export default function ControlBar({
                     onClick={onReset}
                     className="w-full py-2 text-sm font-bold text-gray-500 hover:text-red-500 border-2 border-gray-300 hover:border-red-500 rounded bg-gray-50 hover:bg-red-50 transition-colors"
                     disabled={isCapturing}
-                    title="초기화 (모든 사진 삭제)"
+                    title={t('buttons.confirmReset')}
                 >
-                    🔄 초기화 (Reset All)
+                    {t('buttons.reset')}
                 </button>
             </div>
         </div>

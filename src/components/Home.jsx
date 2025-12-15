@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import CameraStage from "./CameraStage";
 import ControlBar from "./ControlBar";
 import PhotoFrame from "./PhotoFrame";
@@ -6,6 +7,7 @@ import useSound from "../hooks/useSound";
 import InfoSection from "./InfoSection";
 
 export default function Home() {
+    const { t } = useTranslation();
     const [photos, setPhotos] = useState([]); // Array of captured images (base64)
     const [isCapturing, setIsCapturing] = useState(false);
     const [frameColor, setFrameColor] = useState("#ffffff");
@@ -18,7 +20,7 @@ export default function Home() {
     const { playShutter } = useSound();
 
     const handleReset = () => {
-        if (window.confirm("모든 사진을 초기화하시겠습니까?")) {
+        if (window.confirm(t('buttons.confirmReset'))) {
             setPhotos([]);
         }
     };
@@ -69,7 +71,7 @@ export default function Home() {
         console.log("Download initiated");
         if (!frameRef.current) {
             console.error("Frame ref is null");
-            alert("프레임을 찾을 수 없습니다.");
+            alert("프레임을 찾을 수 없습니다."); // Keep fallback or add key if critical
             return;
         }
 
@@ -92,18 +94,13 @@ export default function Home() {
             console.log("Download triggered");
         } catch (err) {
             console.error("Download failed:", err);
-            alert("다운로드 중 오류가 발생했습니다: " + err.message);
+            alert("다운로드 중 오류가 발생했습니다: " + err.message); // This could be translated too but dynamic error msg
         }
     };
 
     return (
         <div className="min-h-screen bg-pop-yellow p-4 md:p-8 flex flex-col items-center gap-12 font-pop overflow-x-hidden">
-            {/* Header Title */}
-            <header>
-                <h1 className="text-5xl font-bold text-pop-pink text-center drop-shadow-[5px_5px_0px_rgba(0,0,0,1)] tracking-wider">
-                    PHOTO POP!
-                </h1>
-            </header>
+
 
             {/* Main Workspace: Camera + Frame */}
             {/* Changed w-full to w-fit to ensure the container shrinks to content size and centers perfectly on screen */}
