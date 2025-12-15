@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme {
+  --color-pop-yellow: #FACC15;
+  --color-pop-pink: #EC4899;
+  --color-pop-cyan: #06B6D4;
+  --font-pop: "Jua", sans-serif;
+}
+
+body {
+  @apply bg-yellow-400;
+}
