@@ -46,8 +46,8 @@ export default function InfoSection() {
                         개인정보 유출 걱정 없이 안전하게 이용하실 수 있습니다.
                     </p>
                     <p className="text-sm text-gray-500 mt-4">
-                        © 2024 Photo Pop. All rights reserved.<br />
-                        Contact: support@photopop.web
+                        © 2025 Photo Pop. All rights reserved.<br />
+                        Contact: b_h_woo@naver.com
                     </p>
                 </article>
             </div>
