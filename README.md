@@ -78,12 +78,17 @@ photo-pop/
 
 ## 📝 라이선스 (License)
 
-This project is licensed under the MIT License.
+본 프로젝트는 **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** 라이선스를 따릅니다.
+
+*   ✅ **이용 가능**: 개인적인 학습, 수정, 비상업적 용도의 사용
+*   🚫 **이용 불가**: **영리 목적의 사용 (상업적 이용 금지)**, 유료 재배포
+
+자세한 내용은 [CC BY-NC 4.0 라이선스 전문](https://creativecommons.org/licenses/by-nc/4.0/deed.ko)을 확인하세요.
 
 ## 📞 문의 (Contact)
 
 기능 제안이나 버그 리포트는 이슈를 등록해주세요.
-*   Email: contact@photopop.web
+*   Email: b_h_woo@naver.com
 
 ---
 Copyright © 2025 Photo Pop. All rights reserved.
