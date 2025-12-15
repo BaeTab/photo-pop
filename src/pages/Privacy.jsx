@@ -32,7 +32,7 @@ export default function Privacy() {
             <section className="mb-6">
                 <h2 className="text-xl font-bold mb-2">4. 문의처</h2>
                 <p>본 서비스의 개인정보 처리와 관련하여 문의사항이 있으신 경우 아래의 연락처로 문의 주시기 바랍니다.</p>
-                <p className="mt-1">Email: contact@photopop.web</p>
+                <p className="mt-1">Email: b_h_woo@naver.com</p>
             </section>
 
             <p className="text-sm text-gray-500 mt-10">본 방침은 2025년 12월 15일부터 시행됩니다.</p>
