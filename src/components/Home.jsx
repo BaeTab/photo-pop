@@ -1,149 +1,44 @@
-import { useState, useRef, useCallback } from "react";
-import { useTranslation } from "react-i18next";
-import CameraStage from "./CameraStage";
-import ControlBar from "./ControlBar";
-import PhotoFrame from "./PhotoFrame";
-import useSound from "../hooks/useSound";
-import InfoSection from "./InfoSection";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import InfoSection from './InfoSection';
 
 export default function Home() {
     const { t } = useTranslation();
-    const [photos, setPhotos] = useState([]); // Array of captured images (base64)
-    const [isCapturing, setIsCapturing] = useState(false);
-    const [frameColor, setFrameColor] = useState("#ffffff");
-    const [filterStyle, setFilterStyle] = useState("none");
-    const [layout, setLayout] = useState("1x4"); // '1x4' or '2x2'
-    const [countdown, setCountdown] = useState(null);
-
-    const webcamRef = useRef(null);
-    const frameRef = useRef(null);
-    const { playShutter } = useSound();
-
-    const handleReset = () => {
-        if (window.confirm(t('buttons.confirmReset'))) {
-            setPhotos([]);
-        }
-    };
-
-    const capturePhoto = useCallback(() => {
-        if (webcamRef.current) {
-            const imageSrc = webcamRef.current.getScreenshot();
-            if (imageSrc) {
-                playShutter();
-                setPhotos((prev) => [...prev, imageSrc]);
-            }
-        }
-    }, [playShutter]);
-
-    const handleStartCapture = useCallback(() => {
-        setIsCapturing(true);
-        setPhotos([]);
-        let captureCount = 0;
-
-        const captureSequence = () => {
-            if (captureCount >= 4) {
-                setIsCapturing(false);
-                setCountdown(null);
-                return;
-            }
-
-            let count = 3;
-            setCountdown(count);
-            const timer = setInterval(() => {
-                count--;
-                setCountdown(count);
-                if (count === 0) {
-                    clearInterval(timer);
-                    capturePhoto();
-                    captureCount++;
-                    setTimeout(captureSequence, 1000); // Wait 1s between shots
-                }
-            }, 1000);
-        };
-
-        captureSequence();
-    }, [capturePhoto]);
-
-    // Ensure frameColor is hex (protection against stale HMR state)
-    const safeFrameColor = frameColor.startsWith("bg-") ? "#ffffff" : frameColor;
-
-    const handleDownload = async () => {
-        console.log("Download initiated");
-        if (!frameRef.current) {
-            console.error("Frame ref is null");
-            alert("프레임을 찾을 수 없습니다."); // Keep fallback or add key if critical
-            return;
-        }
-
-        try {
-            console.log("Starting capture with html-to-image...", safeFrameColor);
-            const { toPng } = await import("html-to-image");
-
-            const dataUrl = await toPng(frameRef.current, {
-                backgroundColor: safeFrameColor,
-                pixelRatio: 2,
-            });
-
-            console.log("Capture success");
-
-            // Create a link to download
-            const link = document.createElement("a");
-            link.download = `PhotoPop_${new Date().toISOString().slice(0, 10)}.png`;
-            link.href = dataUrl;
-            link.click();
-            console.log("Download triggered");
-        } catch (err) {
-            console.error("Download failed:", err);
-            alert("다운로드 중 오류가 발생했습니다: " + err.message); // This could be translated too but dynamic error msg
-        }
-    };
+    const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen bg-pop-yellow p-4 md:p-8 flex flex-col items-center gap-12 font-pop overflow-x-hidden">
+        <div className="min-h-screen bg-pop-yellow flex flex-col items-center font-pop">
+            {/* Hero Section */}
+            <header className="w-full bg-white/30 backdrop-blur-md border-b-4 border-black py-20 px-4 flex flex-col items-center text-center">
+                <h1 className="text-6xl md:text-8xl font-black text-pop-pink drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] mb-6 animate-bounce-slow">
+                    PHOTO POP!
+                </h1>
+                <p className="text-xl md:text-2xl text-gray-800 font-medium max-w-2xl mb-10 leading-relaxed">
+                    {t('info.mainDesc')}
+                </p>
 
+                <button
+                    onClick={() => navigate('/app')}
+                    className="group relative px-8 py-4 bg-pop-cyan text-white text-2xl font-bold rounded-xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 transition-all active:shadow-none active:translate-x-2 active:translate-y-2"
+                >
+                    <span className="flex items-center gap-3">
+                        📸 {t('buttons.start')}
+                    </span>
+                </button>
 
-            {/* Main Workspace: Camera + Frame */}
-            {/* Changed w-full to w-fit to ensure the container shrinks to content size and centers perfectly on screen */}
-            <main className="flex flex-col xl:flex-row gap-12 items-center xl:items-start justify-center w-full xl:w-fit max-w-full">
-                {/* Left: Camera & Controls */}
-                <section className="flex flex-col gap-6 w-full max-w-md shrink-0 items-center">
-                    <CameraStage
-                        ref={webcamRef}
-                        isCapturing={isCapturing}
-                        countdown={countdown}
-                    />
+                <div className="mt-12 flex gap-4 overflow-hidden opacity-80">
+                    {/* Decorative visual elements - could be static images in future */}
+                    <div className="w-32 h-40 bg-white border-2 border-black rotate-[-6deg] shadow-md flex items-center justify-center text-4xl">😎</div>
+                    <div className="w-32 h-40 bg-pop-pink border-2 border-black rotate-[3deg] shadow-md flex items-center justify-center text-4xl">✨</div>
+                    <div className="w-32 h-40 bg-pop-lime border-2 border-black rotate-[-3deg] shadow-md flex items-center justify-center text-4xl">🎞️</div>
+                </div>
+            </header>
 
-                    <ControlBar
-                        onStart={handleStartCapture}
-                        isCapturing={isCapturing}
-                        hasPhotos={photos.length === 4}
-                        onDownload={handleDownload}
-                        setFrameColor={setFrameColor}
-                        setFilterStyle={setFilterStyle}
-                        setLayout={setLayout}
-                        currentFrame={frameColor}
-                        currentFilter={filterStyle}
-                        currentLayout={layout}
-                        onReset={handleReset}
-                    />
-                </section>
-
-                {/* Right: Preview Frame */}
-                {/* Use justify-center to keep the frame centered relative to itself as well, or start to hug the camera */}
-                <section className="w-full overflow-x-auto flex justify-center xl:justify-start pt-4 xl:pt-0">
-                    <PhotoFrame
-                        ref={frameRef}
-                        photos={photos}
-                        frameColor={frameColor}
-                        filterStyle={filterStyle}
-                        layout={layout}
-                    />
-                </section>
+            {/* SEO / Content Section */}
+            <main className="w-full flex justify-center p-4 md:p-8 bg-pattern">
+                <InfoSection />
             </main>
-
-            {/* Footer Content for AdSense/SEO */}
-            {/* Home specific info section */}
-            <InfoSection />
         </div>
     );
 }
