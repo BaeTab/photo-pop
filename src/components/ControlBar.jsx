@@ -13,7 +13,9 @@ export default function ControlBar({
     currentFrame,
     currentFilter,
     currentLayout,
-    onReset // New prop
+    onReset, // New prop
+    adClicked, // New prop
+    setAdClicked // New prop
 }) {
     const { t } = useTranslation();
 
@@ -33,6 +35,23 @@ export default function ControlBar({
 
     return (
         <div className="flex flex-col gap-4 bg-white p-4 border-4 border-black rounded-xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+
+            {/* Ad Integration */}
+            {!adClicked ? (
+                <a
+                    href="https://deg.kr/799c1ba"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setAdClicked(true)}
+                    className="block w-full py-3 text-center text-white font-bold bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 animate-pulse border-2 border-indigo-800"
+                >
+                    💎 1초면 완료! 광고 보고 시작하기
+                </a>
+            ) : (
+                <div className="block w-full py-2 text-center text-green-700 font-bold bg-green-100 rounded-lg border-2 border-green-500">
+                    ✅ 광고 확인 완료!
+                </div>
+            )}
 
             {/* Main Action Button */}
             <button
@@ -139,4 +158,6 @@ ControlBar.propTypes = {
     currentFilter: PropTypes.string.isRequired,
     currentLayout: PropTypes.string.isRequired,
     onReset: PropTypes.func, // Optional func
+    adClicked: PropTypes.bool,
+    setAdClicked: PropTypes.func,
 };
